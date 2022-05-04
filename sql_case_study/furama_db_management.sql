@@ -408,14 +408,18 @@ having sum(chi_phi_thue) + sum(dich_vu_di_kem.gia*hop_dong_chi_tiet.so_luong) >=
  /*Tạo Stored Procedure sp_xoa_khach_hang dùng để xóa thông tin của một khách hàng nào đó với ma_khach_hang được truyền vào như là 1 tham số của sp_xoa_khach_hang*/
  delimiter //
  -- Dòng đầu tiên DELIMITER $$ dùng để phân cách bộ nhớ lưu trữ thủ tục Cache và mở ra một ô lưu trữ mới. Đây là cú pháp nên bắt buộc bạn phải nhập như vậy
- -- drop procedure if exists sp_xoa_khach_hang //
+ drop procedure if exists sp_xoa_khach_hang //
  create procedure sp_xoa_khach_hang 
  (in ma_khach_hang_param int)
  begin 
- delete from khach_hang 
+ update khach_hang 
+ set flag = 0
  where ma_khach_hang = ma_khach_hang_param;
  end//
  delimiter ;
+ call sp_xoa_khach_hang(1);
+ alter table khach_hang 
+ add flag bit;
  
  -- câu 24:
  /*Tạo Stored Procedure sp_them_moi_hop_dong dùng để thêm mới vào bảng hop_dong với yêu cầu sp_them_moi_hop_dong 

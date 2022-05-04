@@ -364,7 +364,8 @@ having sum(chi_phi_thue) + sum(dich_vu_di_kem.gia*hop_dong_chi_tiet.so_luong) >=
 
  -- câu 18: 
  /*Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng)*/
- delete from khach_hang
+ update khach_hang
+ set flag = 0 -- flag = 0 means đã xóa
  where ho_ten in ( select* from(
  select ho_ten from khach_hang
  join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
@@ -373,7 +374,7 @@ having sum(chi_phi_thue) + sum(dich_vu_di_kem.gia*hop_dong_chi_tiet.so_luong) >=
  -- câu 19: 
  /*Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi*/
  update dich_vu_di_kem
- set gia = 200000
+ set gia = gia*2
  where ma_dich_vu_di_kem in (select * from (
  select dich_vu_di_kem.ma_dich_vu_di_kem from dich_vu_di_kem
  join hop_dong_chi_tiet on dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
@@ -381,7 +382,7 @@ having sum(chi_phi_thue) + sum(dich_vu_di_kem.gia*hop_dong_chi_tiet.so_luong) >=
  where year(ngay_lam_hop_dong) = 2020
  group by dich_vu_di_kem.ma_dich_vu_di_kem
  having sum(so_luong) > 10) as test);
- 
+
  -- câu 20:
  /*Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, thông tin hiển thị bao gồm 
  id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi*/
@@ -408,6 +409,8 @@ having sum(chi_phi_thue) + sum(dich_vu_di_kem.gia*hop_dong_chi_tiet.so_luong) >=
  /*Tạo Stored Procedure sp_xoa_khach_hang dùng để xóa thông tin của một khách hàng nào đó với ma_khach_hang được truyền vào như là 1 tham số của sp_xoa_khach_hang*/
  delimiter //
  -- Dòng đầu tiên DELIMITER $$ dùng để phân cách bộ nhớ lưu trữ thủ tục Cache và mở ra một ô lưu trữ mới. Đây là cú pháp nên bắt buộc bạn phải nhập như vậy
+ 
+ -- cách set flag
  drop procedure if exists sp_xoa_khach_hang //
  create procedure sp_xoa_khach_hang 
  (in ma_khach_hang_param int)
@@ -420,6 +423,22 @@ having sum(chi_phi_thue) + sum(dich_vu_di_kem.gia*hop_dong_chi_tiet.so_luong) >=
  call sp_xoa_khach_hang(1);
  alter table khach_hang 
  add flag bit;
+ 
+ -- cách set null foreign key
+ delimiter //
+drop procedure if exists sp_xoa_khach_hang_2 //
+ create procedure sp_xoa_khach_hang_2
+ (in ma_khach_hang_param int)
+ begin 
+ update hop_dong 
+ set ma_khach_hang = null
+ where ma_khach_hang = ma_khach_hang_param;
+ delete from khach_hang
+ where ma_khach_hang = ma_khach_hang_param;
+ end//
+ delimiter ;
+ call sp_xoa_khach_hang(1);
+ call sp_xoa_khach_hang_2(11);
  
  -- câu 24:
  /*Tạo Stored Procedure sp_them_moi_hop_dong dùng để thêm mới vào bảng hop_dong với yêu cầu sp_them_moi_hop_dong 

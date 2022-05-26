@@ -36,5 +36,22 @@
         </tr>
     </c:forEach>
 </table>
+<form action="/controller" method="get">
+    <h1>Product search</h1>
+    <input type="text" name="name" placeholder="input name">
+    <br>
+    <input type="submit" name="action" value="search">
+</form>
+<div>
+<c:if test="${product!=null}">
+    <%@include file="view.jsp"%>
+</c:if>
+</div>
 </body>
 </html>
+<script type="text/javascript">
+    <%--function x() {--%>
+    <%--    let mess = ""--%>
+    <%--    document.getElementById("display").innerHTML = "<%@include file=\"view.jsp\"%>";--%>
+    <%--}--%>
+</script>

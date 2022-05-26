@@ -12,5 +12,6 @@
 </head>
 <body>
 <h1>NOT FOUND</h1>
+<a href="/controller">Back to product list</a>
 </body>
 </html>

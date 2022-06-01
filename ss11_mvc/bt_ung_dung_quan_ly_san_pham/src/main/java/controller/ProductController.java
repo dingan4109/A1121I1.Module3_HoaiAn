@@ -113,41 +113,44 @@ public class ProductController extends HttpServlet {
     }
 
     //CÁCH HIỂN THỊ KẾT QUẢ TRÊN CÙNG MỘT TRANG
-    private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
-        String name = request.getParameter("name");
-        Product product = productService.findByName(name);
-        List<Product> productList = productService.findAll();
-        request.setAttribute("productList",productList);
-
-        RequestDispatcher dispatcher;
-        if(product==null) {
-            dispatcher = request.getRequestDispatcher("error-404.jsp");
-        }else {
-            request.setAttribute("product",product);
-            request.setAttribute("productList",productList);
-            dispatcher = request.getRequestDispatcher("product/list.jsp");
-        }
-        dispatcher.forward(request,response);
-    }
-
-    //CÁCH HIỆN THẲNG VÀO PRODUCTLIST
 //    private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 //            IOException {
 //        String name = request.getParameter("name");
 //        Product product = productService.findByName(name);
-//        List<Product> productList = new ArrayList<>();
-//        productList.add(product);
+//        List<Product> productList = productService.findAll();
+//        request.setAttribute("productList",productList);
 //
 //        RequestDispatcher dispatcher;
 //        if(product==null) {
 //            dispatcher = request.getRequestDispatcher("error-404.jsp");
 //        }else {
+//            request.setAttribute("product",product);
 //            request.setAttribute("productList",productList);
 //            dispatcher = request.getRequestDispatcher("product/list.jsp");
 //        }
 //        dispatcher.forward(request,response);
 //    }
+
+//    CÁCH HIỆN THẲNG VÀO PRODUCTLIST
+    private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        String name = request.getParameter("name");
+        Product product = productService.findByName(name);
+
+        RequestDispatcher dispatcher;
+        if(product==null) {
+            Integer check = 1;
+            request.setAttribute("check",check);
+            request.setAttribute("name",name);
+        }else {
+            List<Product> productList = new ArrayList<>();
+            productList.add(product);
+
+            request.setAttribute("productList",productList);
+        }
+        dispatcher = request.getRequestDispatcher("product/list.jsp");
+        dispatcher.forward(request,response);
+    }
 
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");

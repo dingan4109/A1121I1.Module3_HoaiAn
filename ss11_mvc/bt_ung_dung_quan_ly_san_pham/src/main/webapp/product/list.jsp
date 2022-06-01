@@ -43,8 +43,8 @@
     <input type="submit" name="action" value="search">
 </form>
 <div>
-<c:if test="${product!=null}">
-    <%@include file="view.jsp"%>
+<c:if test="${check==1}">
+    <%@include file="/error-404.jsp"%>
 </c:if>
 </div>
 </body>

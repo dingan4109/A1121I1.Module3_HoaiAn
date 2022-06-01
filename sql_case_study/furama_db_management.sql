@@ -371,6 +371,15 @@ having sum(chi_phi_thue) + sum(dich_vu_di_kem.gia*hop_dong_chi_tiet.so_luong) >=
  join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
  where year(ngay_lam_hop_dong ) < 2021) as test);
  
+ -- cách delete hẳn data
+ delete khach_hang, hop_dong 
+ from khach_hang
+ join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang 
+ where ma_khach_hang in (select * from (
+  select ma_khach_hang from khach_hang
+ join hop_dong on khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
+ where year(ngay_lam_hop_dong ) < 2021) as test);
+ 
  -- câu 19: 
  /*Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi*/
  update dich_vu_di_kem
@@ -498,7 +507,7 @@ declare in_ngay_lam_hop_dong datetime;
 set in_ngay_lam_hop_dong = (select ngay_lam_hop_dong from hop_dong where ma_hop_dong = new.ma_hop_dong);
 IF datediff(new.ngay_ket_thuc,in_ngay_lam_hop_dong) < 2 THEN
     SIGNAL SQLSTATE '25000'
-	SET MESSAGE_TEXT = 'Sai ngay!';
+	SET MESSAGE_TEXT = 'Sai ngày!';
   END IF;
 -- set @show_error = (select 'LỖI');
 end// 
@@ -575,3 +584,21 @@ call sp_xoa_dich_vu_va_hd_room();
 
 
 -- ---------------- TEST------------------
+-- câu 17
+create view update_table as
+select khach_hang.ma_khach_hang, khach_hang.ho_ten,loai_khach.ma_loai_khach, loai_khach.ten_loai_khach, sum(dich_vu.chi_phi_thue+ifnull(hop_dong_chi_tiet.so_luong*dich_vu_di_kem.gia,0)) as tong_tien 
+from khach_hang
+left join loai_khach on loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+left join hop_dong on hop_dong.ma_khach_hang =  khach_hang.ma_khach_hang
+left join dich_vu on dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+left join hop_dong_chi_tiet on hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+left join dich_vu_di_kem on hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+where year(hop_dong.ngay_lam_hop_dong ) = 2021 and khach_hang.ma_loai_khach = 2
+group by hop_dong.ma_hop_dong
+having tong_tien > 10000000 ;
+
+select *from update_table;
+
+update khach_hang
+set khach_hang.ma_loai_khach = 1
+where khach_hang.ma_khach_hang in (select update_table.ma_khach_hang from update_table);

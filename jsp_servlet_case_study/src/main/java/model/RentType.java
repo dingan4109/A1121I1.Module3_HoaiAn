@@ -8,6 +8,11 @@ public class RentType {
     public RentType() {
     }
 
+    public RentType(String rentTypeName, double rentTypeCost) {
+        this.rentTypeName = rentTypeName;
+        this.rentTypeCost = rentTypeCost;
+    }
+
     public RentType(int rentTypeId, String rentTypeName, double rentTypeCost) {
         this.rentTypeId = rentTypeId;
         this.rentTypeName = rentTypeName;

@@ -7,6 +7,10 @@ public class ServiceType {
     public ServiceType() {
     }
 
+    public ServiceType(String serviceTypeName) {
+        this.serviceTypeName = serviceTypeName;
+    }
+
     public ServiceType(int serviceTypeId, String serviceTypeName) {
         this.serviceTypeId = serviceTypeId;
         this.serviceTypeName = serviceTypeName;

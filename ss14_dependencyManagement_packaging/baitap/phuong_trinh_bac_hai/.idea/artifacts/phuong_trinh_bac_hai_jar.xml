@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="phuong_trinh_bac_hai:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/phuong_trinh_bac_hai_jar</output-path>
+    <root id="archive" name="phuong_trinh_bac_hai.jar">
+      <element id="module-output" name="phuong_trinh_bac_hai" />
+    </root>
+  </artifact>
+</component>

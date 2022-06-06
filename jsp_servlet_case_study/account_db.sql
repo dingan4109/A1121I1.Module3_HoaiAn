@@ -88,6 +88,7 @@ customer_address varchar(45),
 foreign key(customer_type_id) references customer_type(customer_type_id)
 );
 
+
 create table service(
 service_id int primary key auto_increment, 
 service_name varchar(45) not null, 

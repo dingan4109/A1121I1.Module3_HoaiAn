@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="javaConsoleApp_jar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../javaConsoleApp/out/artifacts/javaConsoleApp_jar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../javaConsoleApp/out/artifacts/javaConsoleApp_jar" recursive="false" />
+  </library>
+</component>

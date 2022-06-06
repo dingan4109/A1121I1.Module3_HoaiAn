@@ -23,48 +23,21 @@
 </head>
 <body class="container-fluid">
 <header class="border">
-    <div class="row" style="height: 10%">
-        <div class="col-md-3">
-            <img src="https://data.designervn.net/2019/10/9999_ee1666fd5ed5fc063404b448f6b9e301.jpg" style="width:
-            30px;height: 20px;">
-        </div>
-        <div class="col-md-9 border-primary">
-            <p class="text-end">Nguyen Van A</p>
-        </div>
-    </div>
+    <%@include file="header.jsp"%>
 </header>
 <nav class="border">
-  <div class="row">
-      <div class="col-md-9">
-          <ul class="list-unstyled list-inline">
-              <li class="list-inline-item"><a href="#">Home</a></li>
-              <li class="list-inline-item"><a href="#">Employee</a></li>
-              <li class="list-inline-item"><a href="/customerServlet?action=viewList">Customer</a></li>
-              <li class="list-inline-item"><a href="#">Service</a></li>
-              <li class="list-inline-item"><a href="#">Contract</a></li>
-          </ul>
-      </div>
-      <div class="col-md-3">
-          <input type="search" placeholder="Input to search" style="border-radius: 5px">
-      </div>
-  </div>
+  <%@include file="navBar.jsp"%>
 </nav>
 <main>
     <div class="row border h-75">
-        <div class="col-md-3">
-            <ul class="list-unstyled">
-                <li><a href="#">Item One</a></li>
-                <li><a href="#">Item Two</a></li>
-                <li><a href="#">Item Three</a></li>
-            </ul>
-        </div>
+       <%@include file="sideBar.jsp"%>
         <div class="col-md-9 border">
-            <p>Body...</p>
+            ...
         </div>
     </div>
 </main>
 <footer class="border">
-    <p class="text-center">Footer...</p>
+    <%@include file="footer.jsp"%>
 </footer>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Create Customer Form</title>
+    <title>Create Employee Form</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -27,54 +27,23 @@
 </head>
 <body class="container-fluid">
 <header class="border">
-    <div class="row" style="height: 10%">
-        <div class="col-md-3">
-            <img src="https://data.designervn.net/2019/10/9999_ee1666fd5ed5fc063404b448f6b9e301.jpg" style="width:
-            30px;height: 20px;">
-        </div>
-        <div class="col-md-9 border-primary">
-            <p class="text-end">Nguyen Van A</p>
-        </div>
-    </div>
+    <%@include file="/header.jsp"%>
 </header>
 <nav class="border">
-    <div class="row">
-        <div class="col-md-9">
-            <ul class="list-unstyled list-inline">
-                <li class="list-inline-item"><a href="#">Home</a></li>
-                <li class="list-inline-item"><a href="#">Employee</a></li>
-                <li class="list-inline-item"><a href="/customerServlet?action=viewList">Customer</a></li>
-                <li class="list-inline-item"><a href="#">Service</a></li>
-                <li class="list-inline-item"><a href="#">Contract</a></li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <input type="search" placeholder="Input to search" style="border-radius: 5px">
-        </div>
-    </div>
+    <%@include file="/navBar.jsp"%>
 </nav>
 <main>
-    <div class="row border h-75">
-        <div class="col-md-3">
-            <ul class="list-unstyled">
-                <li><a href="#">Item One</a></li>
-                <li><a href="#">Item Two</a></li>
-                <li><a href="#">Item Three</a></li>
-            </ul>
-        </div>
+    <div class="row border">
+        <%@include file="/sideBar.jsp"%>
         <div class="col-md-9 border">
-            <h1>Create new customer form</h1>
-            <a href="/customerServlet?action="><button class="btn btn-primary me-md-2"
-                                               style="background: lightgrey">Back to customer list</button></a>
+            <h1>Create new employee form</h1>
+            <c:if test="${mess!=null}">
+                <p>${mess}</p>
+            </c:if>
+            <a href="/employeeServlet?currentPage=1"><button class="btn btn-primary me-md-2"
+                                                             style="background: lightgrey">Back to employee
+                list</button></a>
             <form class="row g-3 border" method="post">
-                <div class="col-md-3">
-                    <label class="form-label">Customer type id</label>
-                    <select>
-                        <c:forEach items="typeList" var="type">
-
-                        </c:forEach>
-                    </select>
-                </div>
                 <div class="col-md-9">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name">
@@ -84,12 +53,12 @@
                     <input type="date" class="form-control" id="birthday" name="birthday">
                 </div>
                 <div class="col-6">
-                    <label for="gender" class="form-label">Gender</label>
-                    <input type="text" class="form-control" id="gender" name="gender">
-                </div>
-                <div class="col-6">
                     <label for="idCard" class="form-label">Id Card</label>
                     <input type="text" class="form-control" id="idCard" name="idCard">
+                </div>
+                <div class="col-6">
+                    <label for="salary" class="form-label">Salary</label>
+                    <input type="text" class="form-control" id="salary" name="salary">
                 </div>
                 <div class="col-md-6">
                     <label for="phone" class="form-label">Phone</label>
@@ -103,6 +72,34 @@
                     <label for="address" class="form-label">Address</label>
                     <input type="text" class="form-control" id="address" name="address">
                 </div>
+                <div class="col-md-3">
+                    <label class="form-label">Position</label>
+                    <select name="position">
+                        <c:forEach items="${positionList}" var="position">
+                            <option>${position.getPositionName()}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Customer type</label>
+                    <select name="educationDegree">
+                        <c:forEach items="${educationDegreeList}" var="educationDegree">
+                            <option>${educationDegree.getEducationDegreeName()}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Customer type</label>
+                    <select name="division">
+                        <c:forEach items="${divisionList}" var="division">
+                            <option>${division.getDivisionName()}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
                 <div class="col-12">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="gridCheck">
@@ -112,14 +109,14 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Create customer</button>
+                    <button type="submit" class="btn btn-primary">Create employee</button>
                 </div>
             </form>
         </div>
     </div>
 </main>
 <footer class="border">
-    <p class="text-center">Footer...</p>
+    <%@include file="/footer.jsp"%>
 </footer>
 </body>
 </html>

@@ -1,21 +1,21 @@
 package service;
 
-import dao.ServiceDAO;
-import dao.ServiceDAOImpl;
+import repository.ServiceRepo;
+import repository.ServiceRepoImpl;
 import model.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ServiceServiceImpl implements ServiceService{
-    ServiceDAO serviceDAO = new ServiceDAOImpl();
+    ServiceRepo serviceRepo = new ServiceRepoImpl();
     @Override
     public List<Service> selectAllService() {
-        return serviceDAO.selectAllService();
+        return serviceRepo.selectAllService();
     }
 
     @Override
     public boolean insertService(Service service) throws SQLException {
-        return serviceDAO.insertService(service);
+        return serviceRepo.insertService(service);
     }
 }

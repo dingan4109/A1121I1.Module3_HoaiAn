@@ -1,21 +1,21 @@
 package service;
 
-import dao.CustomerTypeDAO;
-import dao.CustomerTypeDAOImpl;
+import repository.CustomerTypeRepo;
+import repository.CustomerTypeRepoImpl;
 import model.CustomerType;
 
 import java.util.List;
 
 public class CustomerTypeServiceImpl implements CustomerTypeService {
-    CustomerTypeDAO customerTypeDAO = new CustomerTypeDAOImpl();
+    CustomerTypeRepo customerTypeRepo = new CustomerTypeRepoImpl();
 
     @Override
     public List<CustomerType> selectCustomerTypes() {
-        return customerTypeDAO.selectCustomerTypes();
+        return customerTypeRepo.selectCustomerTypes();
     }
 
     @Override
     public boolean insertCustomerType(CustomerType customerType) {
-        return customerTypeDAO.insertCustomerType(customerType);
+        return customerTypeRepo.insertCustomerType(customerType);
     }
 }

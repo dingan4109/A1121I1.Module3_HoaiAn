@@ -1,13 +1,13 @@
 package service;
 
-import dao.UserDAO;
-import dao.UserDAOImpl;
+import repository.UserRepo;
+import repository.UserRepoImpl;
 import model.User;
 
 public class UserServiceImpl implements UserService{
-    UserDAO userDAO = new UserDAOImpl();
+    UserRepo userRepo = new UserRepoImpl();
     @Override
     public boolean insertUser(User user) {
-        return userDAO.insertUser(user);
+        return userRepo.insertUser(user);
     }
 }

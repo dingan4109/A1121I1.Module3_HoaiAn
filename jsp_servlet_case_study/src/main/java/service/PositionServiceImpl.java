@@ -1,15 +1,15 @@
 package service;
 
-import dao.PositionDAO;
-import dao.PositionDAOImpl;
+import repository.PositionRepo;
+import repository.PositionRepoImpl;
 import model.Position;
 
 import java.util.List;
 
 public class PositionServiceImpl implements PositionService{
-    PositionDAO positionDAO = new PositionDAOImpl();
+    PositionRepo positionRepo = new PositionRepoImpl();
     @Override
     public List<Position> selectAllPosition() {
-        return positionDAO.selectAllPosition();
+        return positionRepo.selectAllPosition();
     }
 }

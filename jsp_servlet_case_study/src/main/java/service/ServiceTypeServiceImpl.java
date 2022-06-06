@@ -1,20 +1,20 @@
 package service;
 
-import dao.ServiceTypeDAO;
-import dao.ServiceTypeDAOImpl;
+import repository.ServiceTypeRepo;
+import repository.ServiceTypeRepoImpl;
 import model.ServiceType;
 
 import java.util.List;
 
 public class ServiceTypeServiceImpl implements ServiceTypeService{
-    ServiceTypeDAO serviceTypeDAO = new ServiceTypeDAOImpl();
+    ServiceTypeRepo serviceTypeRepo = new ServiceTypeRepoImpl();
     @Override
     public List<ServiceType> selectServiceTypes() {
-        return serviceTypeDAO.selectServiceTypes();
+        return serviceTypeRepo.selectServiceTypes();
     }
 
     @Override
     public boolean insertServiceType(ServiceType serviceType) {
-        return serviceTypeDAO.insertServiceType(serviceType);
+        return serviceTypeRepo.insertServiceType(serviceType);
     }
 }

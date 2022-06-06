@@ -1,15 +1,15 @@
 package service;
 
-import dao.EducationDegreeDAO;
-import dao.EducationDegreeDAOImpl;
+import repository.EducationDegreeRepo;
+import repository.EducationDegreeRepoImpl;
 import model.EducationDegree;
 
 import java.util.List;
 
 public class EducationDegreeServiceImpl implements EducationDegreeService {
-    EducationDegreeDAO educationDegreeDAO = new EducationDegreeDAOImpl();
+    EducationDegreeRepo educationDegreeRepo = new EducationDegreeRepoImpl();
     @Override
     public List<EducationDegree> selectAllEducationDegree() {
-        return educationDegreeDAO.selectAllEducationDegree();
+        return educationDegreeRepo.selectAllEducationDegree();
     }
 }

@@ -48,7 +48,29 @@
                     </a>
                 </div>
                 <div class="col-md-9">
-                  
+                    <form action="/customerServlet" method="get">
+                        <input hidden name="action" value="search">
+                        <input hidden name="currentPage" value="1">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" name="name" placeholder="Input name">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="address" placeholder="Input address">
+                            </div>
+                            <div class="col">
+                                <select name="type">
+                                    <option value="">Select</option>
+                                    <c:forEach items="${customerTypes}" var="customerType">
+                                        <option>${customerType.getCustomerTypeName()}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <br><br>

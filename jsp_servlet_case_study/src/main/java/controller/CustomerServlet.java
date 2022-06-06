@@ -211,10 +211,23 @@ public class CustomerServlet extends HttpServlet {
 
     }
 
-    private void searchCustomers(HttpServletRequest request, HttpServletResponse response) {
+    private void searchCustomers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String type = request.getParameter("type");
+        List<Customer> customerList = null;
+        List<CustomerType> customerTypes = null;
+
+        try {
+            customerList = customerService.searchCustomers(name,address,type);
+            customerTypes = customerTypeService.selectCustomerTypes();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("customerList",customerList);
+        request.setAttribute("customerTypes",customerTypes);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/customerList.jsp");
+        dispatcher.forward(request,response);
     }
 
     private void editCustomerForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

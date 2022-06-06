@@ -279,10 +279,10 @@ public class EmployeeServlet extends HttpServlet {
     private void insertList(HttpServletRequest request, HttpServletResponse response) {
         List<Employee> list = new ArrayList<>();
         Employee employee = null;
-        String[] characters = {"Nguyễn Văn A", "Trần Văn B", "Lê Lợi", "Ngô QUyền", "Hai Bà Trưng", "HUyền Trân Công Chúa",
+        String[] characters = {"Nguyễn Văn A", "Trần Văn B", "Lê Lợi", "Ngô QUyền", "Hai Bà Trưng", "Hàm Nghi",
                 "Đinh Bộ Lĩnh",
-                "Mị Châu",
-                "Trọng Thủy", "Vua Hùng 18", "Võ Thị Sáu", "Bùi Thị Xuân"};
+                "Phan Đình Phùng",
+                "Phạm Ngọc Thạch", "Đồng Khởi", "Võ Thị Sáu", "Bùi Thị Xuân"};
         int length = characters.length;
         String randomName = null;
         Date date = new Date();

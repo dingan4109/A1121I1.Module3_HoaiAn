@@ -1,20 +1,20 @@
 package service;
 
-import dao.RentTypeDAO;
-import dao.RentTypeDAOImpl;
+import repository.RentTypeRepo;
+import repository.RentTypeRepoImpl;
 import model.RentType;
 
 import java.util.List;
 
 public class RentTypeServiceImpl implements RentTypeService{
-    RentTypeDAO rentTypeDAO = new RentTypeDAOImpl();
+    RentTypeRepo rentTypeRepo = new RentTypeRepoImpl();
     @Override
     public List<RentType> selectRentTypes() {
-        return rentTypeDAO.selectRentTypes();
+        return rentTypeRepo.selectRentTypes();
     }
 
     @Override
     public boolean insertRentType(RentType rentType) {
-        return rentTypeDAO.insertRentType(rentType);
+        return rentTypeRepo.insertRentType(rentType);
     }
 }

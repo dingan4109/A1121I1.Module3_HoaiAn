@@ -1,15 +1,15 @@
 package service;
 
-import dao.DivisionDAO;
-import dao.DivisionDAOImpl;
+import repository.DivisionRepo;
+import repository.DivisionRepoImpl;
 import model.Division;
 
 import java.util.List;
 
 public class DivisionServiceImpl implements DivisionService{
-    DivisionDAO divisionDAO = new DivisionDAOImpl();
+    DivisionRepo divisionRepo = new DivisionRepoImpl();
     @Override
     public List<Division> selectAllDivision() {
-        return divisionDAO.selectAllDivision();
+        return divisionRepo.selectAllDivision();
     }
 }

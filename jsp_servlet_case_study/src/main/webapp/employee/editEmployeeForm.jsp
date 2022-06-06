@@ -87,7 +87,7 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Customer type</label>
+                    <label class="form-label">Education Degree</label>
                     <select name="educationDegree">
                         <c:forEach items="${educationDegreeList}" var="educationDegree">
                             <option>${educationDegree.getEducationDegreeName()}</option>
@@ -95,7 +95,7 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Customer type</label>
+                    <label class="form-label">Division</label>
                     <select name="division">
                         <c:forEach items="${divisionList}" var="division">
                             <option>${division.getDivisionName()}</option>

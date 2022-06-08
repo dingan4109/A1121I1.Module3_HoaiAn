@@ -39,12 +39,40 @@
         <div class="col-md-9 border">
             <h1>Employee List</h1>
             <div class="row">
-                <a href="/employeeServlet?action=createEmployee">
-                    <button class="btn btn-primary me-md-2"
-                            style="background: lightgrey">Create new
-                        employee
-                    </button>
-                </a>
+                <div class="col-md-3">
+                    <a href="/employeeServlet?action=createEmployee">
+                        <button class="btn btn-primary me-md-2"
+                                style="background: lightgrey">Create new
+                            employee
+                        </button>
+                    </a>
+                </div>
+                <div class="col-md-9">
+                    <form action="/employeeServlet" method="get">
+                        <input hidden name="action" value="searchEmployees">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" name="name" placeholder="Input name">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="address" placeholder="Input address">
+                            </div>
+                            <div class="col">
+                                <select name="positionId">
+                                    <option value="">Select</option>
+                                    <c:forEach items="${positionList}" var="customer">
+                                        <option
+                                                value="${customer.getPositionId()}">
+                                                ${customer.getPositionName()}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <br><br>
             <c:if test="${mess!=null}">
@@ -67,33 +95,33 @@
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
-                <c:forEach items="${employeeList}" var="employee">
+                <c:forEach items="${employeeList}" var="contract">
                     <tr>
-                        <td>${employee.getEmployeeId()}</td>
-                        <td>${employee.getEmployeeName()}</td>
-                        <td>${employee.getEmployeeBirthday()}</td>
-                        <td>${employee.getEmployeeIdCard()}</td>
-                        <td>${employee.getEmployeeSalary()}</td>
-                        <td>${employee.getEmployeePhone()}</td>
-                        <td>${employee.getEmployeeEmail()}</td>
-                        <td>${employee.getEmployeeAddress()}</td>
-                        <c:forEach items="${positionList}" var="position">
-                            <c:if test="${employee.getPositionId() == position.getPositionId()}">
-                                <td><c:out value="${position.getPositionName()}"></c:out></td>
+                        <td>${contract.getEmployeeId()}</td>
+                        <td>${contract.getEmployeeName()}</td>
+                        <td>${contract.getEmployeeBirthday()}</td>
+                        <td>${contract.getEmployeeIdCard()}</td>
+                        <td>${contract.getEmployeeSalary()}</td>
+                        <td>${contract.getEmployeePhone()}</td>
+                        <td>${contract.getEmployeeEmail()}</td>
+                        <td>${contract.getEmployeeAddress()}</td>
+                        <c:forEach items="${positionList}" var="customer">
+                            <c:if test="${contract.getPositionId() == customer.getPositionId()}">
+                                <td><c:out value="${customer.getPositionName()}"></c:out></td>
                             </c:if>
                         </c:forEach>
-                        <c:forEach items="${educationDegreeList}" var="educationDegree">
-                            <c:if test="${employee.getEducationDegreeId() == educationDegree.getEducationDegreeId()}">
-                                <td><c:out value="${educationDegree.getEducationDegreeName()}"></c:out></td>
+                        <c:forEach items="${educationDegreeList}" var="customer">
+                            <c:if test="${contract.getEducationDegreeId() == customer.getEducationDegreeId()}">
+                                <td><c:out value="${customer.getEducationDegreeName()}"></c:out></td>
                             </c:if>
                         </c:forEach>
-                        <c:forEach items="${divisionList}" var="division">
-                            <c:if test="${employee.getDivisionId() == division.getDivisionId()}">
-                                <td><c:out value="${division.getDivisionName()}"></c:out></td>
+                        <c:forEach items="${divisionList}" var="customer">
+                            <c:if test="${contract.getDivisionId() == customer.getDivisionId()}">
+                                <td><c:out value="${customer.getDivisionName()}"></c:out></td>
                             </c:if>
                         </c:forEach>
-                        <td>${employee.getUsername()}</td>
-                        <td><a href="/employeeServlet?action=editEmployee&employee_id=${employee.getEmployeeId()}">
+                        <td>${contract.getUsername()}</td>
+                        <td><a href="/employeeServlet?action=editEmployee&employee_id=${contract.getEmployeeId()}">
                             <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="16" height="16" fill="currentColor"
@@ -104,12 +132,12 @@
                             </svg>
                         </a></td>
                         <td><a
-                                onclick="employeeInfo('${employee.getEmployeeId()}','${employee.getEmployeeName()}','${employee.getEmployeeBirthday()}',
-                                        '${employee.getEmployeeIdCard()}','${employee.getEmployeeSalary()}',
-                                        '${employee.getEmployeePhone()}','${employee.getEmployeeEmail()}',
-                                        '${employee.getEmployeeAddress()}','${employee.getPositionId()}',
-                                        '${employee.getEducationDegreeId()}','${employee.getDivisionId()}',
-                                        '${employee.getUsername()}')"
+                                onclick="employeeInfo('${contract.getEmployeeId()}','${contract.getEmployeeName()}','${contract.getEmployeeBirthday()}',
+                                        '${contract.getEmployeeIdCard()}','${contract.getEmployeeSalary()}',
+                                        '${contract.getEmployeePhone()}','${contract.getEmployeeEmail()}',
+                                        '${contract.getEmployeeAddress()}','${contract.getPositionId()}',
+                                        '${contract.getEducationDegreeId()}','${contract.getDivisionId()}',
+                                        '${contract.getUsername()}')"
                                 data-bs-toggle="modal"
                                 data-bs-target="#staticBackdrop">
                             <svg

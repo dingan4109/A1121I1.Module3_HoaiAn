@@ -14,4 +14,5 @@ public interface EmployeeRepo {
 
     int countEmployees() throws SQLException;
     void insertEmployeeList(List<Employee> list);
+    List<Employee> searchEmployees(String name, String address, String position) throws SQLException;
 }

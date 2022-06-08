@@ -9,6 +9,7 @@ import java.util.List;
 
 public class EmployeeRepoImpl implements EmployeeRepo {
     private final static String SELECT_ALL_EMPLOYEE = "SELECT * FROM employee LIMIT ?,?";
+    private final static String SELECT_ALL_EMPLOYEE_UNLIMIT = "SELECT * FROM employee ";
     private final static String SELECT_EMPLOYEE_BY_ID = "SELECT * FROM employee WHERE employee_id =?";
     private final static String COUNT_EMPLOYEE = "SELECT COUNT(employee_id) FROM employee";
     private final static String INSERT_EMPLOYEE = "INSERT INTO employee(employee_name,employee_birthday," +
@@ -18,7 +19,8 @@ public class EmployeeRepoImpl implements EmployeeRepo {
     private final static String UPDATE_EMPLOYEE = "UPDATE employee SET employee_name =?,employee_birthday =?," +
             "employee_id_card =?,employee_salary =?,employee_phone =?,employee_email =?,employee_address =?,position_id =?," +
             "education_degree_id =?,division_id =?,username =? WHERE employee_id=?";
-
+    private final static String SEARCH_EMPLOYEE = "SELECT * FROM employee WHERE employee_name LIKE ? AND " +
+            "employee_address LIKE ? AND position_id LIKE ? ";
     @Override
     public List<Employee> selectAllEmployee(int currentPage) throws SQLException {
         //connect to database
@@ -27,9 +29,15 @@ public class EmployeeRepoImpl implements EmployeeRepo {
         int startIndex = currentPage * recordsPerPage - recordsPerPage;
 
         List<Employee> employeeList = new ArrayList<>();
-        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_EMPLOYEE);
-        preparedStatement.setInt(1,startIndex);
-        preparedStatement.setInt(2,recordsPerPage);
+        PreparedStatement preparedStatement = null;
+        if(currentPage==-1) {
+            preparedStatement = connection.prepareStatement(SELECT_ALL_EMPLOYEE_UNLIMIT);
+        }else {
+            preparedStatement = connection.prepareStatement(SELECT_ALL_EMPLOYEE);
+            preparedStatement.setInt(1,startIndex);
+            preparedStatement.setInt(2,recordsPerPage);
+        }
+
         ResultSet rs = preparedStatement.executeQuery();
 
         while(rs.next()) {
@@ -162,5 +170,25 @@ public class EmployeeRepoImpl implements EmployeeRepo {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public List<Employee> searchEmployees(String name, String address, String position) throws SQLException {
+        Connection connection = ConnectionObject.getConnection();
+        List<Employee> employeeList = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_EMPLOYEE);
+
+        preparedStatement.setString(1,"%"+name+"%");
+        preparedStatement.setString(2,"%"+address+"%");
+        preparedStatement.setString(3,"%"+position+"%");
+
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+            Employee employee = getEmployee(rs);
+            employeeList.add(employee);
+        }
+        connection.close();
+
+        return employeeList;
     }
 }

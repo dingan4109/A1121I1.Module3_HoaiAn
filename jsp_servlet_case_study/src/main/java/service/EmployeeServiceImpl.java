@@ -43,4 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void insertEmployeeList(List<Employee> list) {
         employeeRepo.insertEmployeeList(list);
     }
+
+    @Override
+    public List<Employee> searchEmployees(String name, String address, String position) throws SQLException {
+        return employeeRepo.searchEmployees(name,address,position);
+    }
 }

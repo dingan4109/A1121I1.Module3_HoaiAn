@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Reader;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -237,10 +238,32 @@ public class EmployeeServlet extends HttpServlet {
             case "user":
                 viewUser(request, response);
                 break;
+            case "searchEmployees":
+                searchEmployee(request,response);
+                break;
             default:
                 viewEmployeeList(request, response);
                 break;
         }
+    }
+
+    private void searchEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String positionId = request.getParameter("positionId");
+        List<Employee> employeeList = null;
+        List<Position> positionList = null;
+        try {
+            employeeList = employeeService.searchEmployees(name,address,positionId);
+            positionList = positionService.selectAllPosition();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        request.setAttribute("employeeList",employeeList);
+        request.setAttribute("positionList",positionList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/employeeList.jsp");
+        dispatcher.forward(request,response);
     }
 
     private void editEmployeeForm(HttpServletRequest request, HttpServletResponse response) throws ServletException,

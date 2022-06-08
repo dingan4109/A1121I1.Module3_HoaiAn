@@ -75,16 +75,16 @@
                 <div class="col-md-3">
                     <label class="form-label">Position</label>
                     <select name="position">
-                        <c:forEach items="${positionList}" var="position">
-                            <option>${position.getPositionName()}</option>
+                        <c:forEach items="${positionList}" var="customer">
+                            <option>${customer.getPositionName()}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">Education Degree</label>
                     <select name="educationDegree">
-                        <c:forEach items="${educationDegreeList}" var="educationDegree">
-                            <option>${educationDegree.getEducationDegreeName()}</option>
+                        <c:forEach items="${educationDegreeList}" var="customer">
+                            <option>${customer.getEducationDegreeName()}</option>
                         </c:forEach>
                     </select>
                 </div>

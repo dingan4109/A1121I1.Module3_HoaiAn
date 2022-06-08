@@ -12,6 +12,7 @@ import java.util.List;
 
 public class CustomerRepoImpl implements CustomerRepo {
     private final static String SELECT_ALL_CUSTOMER = "SELECT * FROM customer LIMIT ?,? ";
+    private final static String SELECT_ALL_CUSTOMER_UNLIMIT = "SELECT * FROM customer ";
     private final static String SELECT_CUSTOMER_BY_ID = "SELECT * FROM customer WHERE customer_id = ?";
     private final static String INSERT_CUSTOMER = "INSERT INTO customer(customer_type_id,customer_name, " +
             "customer_birthday, " +
@@ -36,10 +37,15 @@ public class CustomerRepoImpl implements CustomerRepo {
         int startIndex = currentPage * recordsPerPage - recordsPerPage;
 
         List<Customer> customerList = new ArrayList<>();
-        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CUSTOMER);
+        PreparedStatement preparedStatement = null;
+        if(currentPage == -1) {
+            preparedStatement = connection.prepareStatement(SELECT_ALL_CUSTOMER_UNLIMIT);
+        }else {
+            preparedStatement = connection.prepareStatement(SELECT_ALL_CUSTOMER);
 
-        preparedStatement.setInt(1,startIndex);
-        preparedStatement.setInt(2,recordsPerPage);
+            preparedStatement.setInt(1,startIndex);
+            preparedStatement.setInt(2,recordsPerPage);
+        }
 
         ResultSet rs = preparedStatement.executeQuery();
 
@@ -168,14 +174,14 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public List<Customer> searchCustomers(String name, String address, String type) throws SQLException {
+    public List<Customer> searchCustomers(String name, String address, String typeId) throws SQLException {
         Connection connection = ConnectionObject.getConnection();
         List<Customer> customerList = new ArrayList<>();
         PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_CUSTOMER);
 
         preparedStatement.setString(1,"%"+name+"%");
         preparedStatement.setString(2,"%"+address+"%");
-        preparedStatement.setString(3,"%"+type+"%");
+        preparedStatement.setString(3,"%"+typeId+"%");
 
         ResultSet rs = preparedStatement.executeQuery();
         while (rs.next()) {

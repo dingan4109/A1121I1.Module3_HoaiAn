@@ -39,7 +39,7 @@
                     href="/customerServlet?currentPage=1">Customer
             </a></li>
             <li class="list-inline-item"><a href="/serviceServlet">Service</a></li>
-            <li class="list-inline-item"><a href="#">Contract</a></li>
+            <li class="list-inline-item"><a href="/contractServlet">Contract</a></li>
         </ul>
     </div>
     <div class="col-md-3">

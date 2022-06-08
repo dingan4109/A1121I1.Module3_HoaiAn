@@ -32,7 +32,6 @@ public class ServiceServlet extends HttpServlet {
                 createService(request,response);
                 break;
         }
-
     }
 
     private void createService(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

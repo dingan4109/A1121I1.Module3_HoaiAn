@@ -50,7 +50,7 @@
                 <div class="col-md-9">
                     <form action="/customerServlet" method="get">
                         <input hidden name="action" value="search">
-                        <input hidden name="currentPage" value="1">
+<%--                        <input hidden name="currentPage" value="1">--%>
                         <div class="row">
                             <div class="col">
                                 <input type="text" name="name" placeholder="Input name">
@@ -59,10 +59,12 @@
                                 <input type="text" name="address" placeholder="Input address">
                             </div>
                             <div class="col">
-                                <select name="type">
+                                <select name="typeId">
                                     <option value="">Select</option>
                                     <c:forEach items="${customerTypes}" var="customerType">
-                                        <option>${customerType.getCustomerTypeName()}</option>
+                                        <option
+                                                value="${customerType.getCustomerTypeId()}">
+                                                ${customerType.getCustomerTypeName()}</option>
                                     </c:forEach>
                                 </select>
                             </div>

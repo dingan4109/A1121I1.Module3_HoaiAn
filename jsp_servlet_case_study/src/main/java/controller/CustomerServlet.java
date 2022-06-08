@@ -214,12 +214,12 @@ public class CustomerServlet extends HttpServlet {
     private void searchCustomers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
-        String type = request.getParameter("type");
+        String typeId = request.getParameter("typeId");
         List<Customer> customerList = null;
         List<CustomerType> customerTypes = null;
 
         try {
-            customerList = customerService.searchCustomers(name,address,type);
+            customerList = customerService.searchCustomers(name,address,typeId);
             customerTypes = customerTypeService.selectCustomerTypes();
         } catch (SQLException e) {
             e.printStackTrace();

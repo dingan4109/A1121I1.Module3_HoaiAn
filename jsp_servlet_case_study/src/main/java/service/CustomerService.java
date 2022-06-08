@@ -14,5 +14,5 @@ public interface CustomerService {
 
     void insertCustomerList(List<Customer> list);
     int countCustomers() throws SQLException;
-    List<Customer> searchCustomers(String name,String address,String type) throws SQLException;
+    List<Customer> searchCustomers(String name,String address,String typeId) throws SQLException;
 }

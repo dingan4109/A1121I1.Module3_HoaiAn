@@ -48,8 +48,8 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<Customer> searchCustomers(String name, String address, String type) throws SQLException {
-        return customerRepo.searchCustomers(name,address,type);
+    public List<Customer> searchCustomers(String name, String address, String typeId) throws SQLException {
+        return customerRepo.searchCustomers(name,address,typeId);
     }
 
 
